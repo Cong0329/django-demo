@@ -114,10 +114,12 @@
     <div class="col-12 title-suggest my-5 py-3">
       <h3 class="py-1">Sản phẩm đề xuất</h3>
       <div class="row no-gutters grooves d-flex pt-2" id="product-list">
-        {% for product in products|dictsortreversed:"save_clicked" %} {#ssssss#}
-        {% if forloop.first %} {% with product_brand=product.brand %} {#ssssss#}
-        {% for suggest_product in products %} {#ssssssssssssssssssssssssssss#}
-        {% if suggest_product.brand == product_brand %}
+        {% with suggest_count=0 %} {#sssssssssssssssssssssssssssssssssssssss#}
+        {% for product in products|dictsortreversed:"save_clicked" %} {#ssss#}
+        {% if suggest_count < 3 %} {% with product_brand=product.brand %}
+        {#sssss#} {% for suggest_product in products %} {#sssssssssssssssssss#}
+        {% if suggest_product.brand == product_brand %} {#sssssssssssssssssss#}
+        {% if suggest_count < 3 %} {% with suggest_count=suggest_count|add:1 %}
         <div
           class="col-2 product-card"
           data-brand="{{ suggest_product.brand }}"
@@ -154,7 +156,8 @@
             </div>
           </div>
         </div>
-        {% endif %} {% endfor %} {% endwith %} {% endif %} {% endfor %}
+        {% endwith %} {% endif %} {% endif %} {% endfor %} {% endwith %}
+        {#sssss#} {% endif %} {% endfor %} {% endwith %}
       </div>
     </div>
   </div>
