@@ -19,6 +19,7 @@ class Product(models.Model):
     detail = models.CharField(max_length=500, null=True)
     detail_ingredient = models.CharField(max_length=500, null=True)
     click_count = models.IntegerField(default=0)
+    save_clicked = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -77,4 +78,4 @@ class Shipping(models.Model):
         return self.address
 
 class Files(models.Model):
-    file = models.FileField(upload_to='file')   
+    file = models.FileField(upload_to='file')  

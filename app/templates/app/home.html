@@ -56,6 +56,17 @@
   .card-img-top {
     cursor: pointer;
   }
+  .body-service .card {
+    border: 0
+  }
+  .card-service {
+    border-radius: 20px
+  }
+  .card-content {
+    margin-top: 20px;
+    background: #f8f9fa;
+    border-radius: 20px;
+  }
 </style>
 <div class="container container-responsivegrid mt-4">
   <div class="row no-gutters">
@@ -72,6 +83,7 @@
         <button
           type="button"
           class="btn btn-light rounded-pill font-weight-bolder"
+          style="width: 50%"
         >
           Thông tin công ty Coco
         </button>
@@ -108,14 +120,14 @@
       </div>
     </div>
     <div class="body-service row col-12">
-      <div class="col-6">
+      <div class="col-6" style="padding-right: 10px">
         <div class="card">
           <img
             src="{% static 'images/service.webp' %}"
-            class="card-img-top"
+            class="card-img-top card-service"
             alt="..."
           />
-          <div class="card-body">
+          <div class="card-body card-content">
             <h5 class>Để từng khoảnh khắc trong cuộc sống tràn đầy ý nghĩa</h5>
             <p class="card-text">
               Chúng tôi luôn tích cực tìm hiểu nhu cầu của người dùng và đam mê
@@ -127,16 +139,16 @@
           </div>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-6" style="padding-left: 10px">
         <div class="card">
           <a href="service">
             <img
               src="{% static 'images/cc.webp' %}"
-              class="card-img-top"
+              class="card-img-top  card-service"
               alt="..."
             />
           </a>
-          <div class="card-body">
+          <div class="card-body card-content">
             <h5 class>
               Vì Một Thế Giới Không Rác Thải, hãy hành động từng bước cùng chúng
               tôi!
@@ -145,8 +157,8 @@
               Chúng tôi góp phần giải quyết các vấn đề về bao bì thông qua việc
               đầu tư vào môi trường và quy trình đóng gói
             </p>
-            <a href="service" class="">
-              <h4 class="">Sáng kiến phát triển bao bì bền vững</h4>
+            <a href="service" >
+              <h4 >Sáng kiến phát triển bao bì bền vững</h4>
             </a>
           </div>
         </div>

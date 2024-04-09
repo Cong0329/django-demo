@@ -110,14 +110,16 @@ def product(request):
     if query:
         products = products.filter(Q(name__icontains=query))
 
+
     cartItems = 0
     if request.user.is_authenticated:
         customer = request.user
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         cartItems = order.get_cart_items
 
-    context = {'products': products, 'cartItem': cartItems, 'query': query}
+    context = {'products': products, 'cartItem': cartItems, 'query': query,}
     return render(request, 'app/product.html', context)
+
 
 def productDetail(request, product_id=None):
     if product_id:
@@ -186,11 +188,19 @@ def profile(request):
         return redirect('login')
 
 def service(request):
-    return render(request, 'app/service.html')
+    cartItems = 0
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        cartItems = order.get_cart_items
+
+    context = {'cartItem': cartItems}
+    return render(request, 'app/service.html', context)
+
 
 def increase_click_count(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     
     product.click_count += 1
-    product.save()
+    product.save(update_fields=['click_count', 'save_clicked'])
     return HttpResponse()

@@ -22,6 +22,10 @@
     max-height: 170px;
     object-fit: contain;
   }
+  .title-suggest {
+    background: #f8f9fa;
+    border-radius: 20px;
+  }
 </style>
 
 <div class="container container-products pb-4">
@@ -72,7 +76,7 @@
       </div>
     </div>
     <div class="row no-gutters grooves d-flex pt-2" id="product-list">
-      {% for product in products %}
+      {% for product in products%}
       <div
         class="col-2 product-card"
         data-brand="{{ product.brand }}"
@@ -106,6 +110,52 @@
         </div>
       </div>
       {% endfor %}
+    </div>
+    <div class="col-12 title-suggest my-5 py-3">
+      <h3 class="py-1">Sản phẩm đề xuất</h3>
+      <div class="row no-gutters grooves d-flex pt-2" id="product-list">
+        {% for product in products|dictsortreversed:"save_clicked" %} {#ssssss#}
+        {% if forloop.first %} {% with product_brand=product.brand %} {#ssssss#}
+        {% for suggest_product in products %} {#ssssssssssssssssssssssssssss#}
+        {% if suggest_product.brand == product_brand %}
+        <div
+          class="col-2 product-card"
+          data-brand="{{ suggest_product.brand }}"
+          data-name="{{ suggest_product.name }}"
+          data-price="{{ suggest_product.price }}"
+          data-image="{{ suggest_product.ImageURL }}"
+          data-id="{{ suggest_product.id }}"
+          data-detail="{{ suggest_product.detail }}"
+          data-detail_ingredient="{{ suggest_product.detail_ingredient }}"
+        >
+          <div class="card product-card m-1">
+            <img
+              class="card-img-top"
+              src="{{ suggest_product.ImageURL }}"
+              style="cursor: pointer"
+            />
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ suggest_product.name | truncatechars:18 }}
+              </h5>
+              <div class="align-items-center d-flex justify-content-between">
+                <p class="price">
+                  ${{ suggest_product.price | floatformat:2 }}
+                </p>
+                <a
+                  data-product="{{ suggest_product.id }}"
+                  data-action="add"
+                  class="btn btn-outline-dark update-cart"
+                  style=""
+                  onclick="increaseClickCount({{ suggest_product.id }})"
+                  >Thêm vào giỏ</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %} {% endfor %} {% endwith %} {% endif %} {% endfor %}
+      </div>
     </div>
   </div>
 </div>
@@ -222,9 +272,7 @@
 <script>
   function increaseClickCount(productId) {
     fetch(`/increase_click_count/${productId}/`)
-      .then((response) => {
-        // Xử lý phản hồi nếu cần thiết
-      })
+      .then((response) => {})
       .catch((error) => {
         console.error("Có lỗi xảy ra:", error);
       });

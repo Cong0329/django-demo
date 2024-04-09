@@ -1,0 +1,7 @@
+python manage.py shell
+
+from myapp.models import Product
+
+products = Product.objects.all()
+for product in products:
+    print(f"Product: {product.name}, Save clicked at: {product.save_clicked}")
