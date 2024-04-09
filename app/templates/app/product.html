@@ -29,43 +29,43 @@
     <div class="col-12 title-product p-2">
       <h3 class="py-2">Danh mục sản phẩm</h3>
       <div
-        class="btn btn-outline-secondary rounded-pill active mr-1"
+        class="btn btn-outline-secondary rounded-pill {% if not query %}active{% endif %} mr-1"
         data-brand="All"
       >
         Tất cả
       </div>
       <div
-        class="btn btn-outline-secondary rounded-pill mr-1"
+        class="btn btn-outline-secondary rounded-pill mr-1 {% if query == 'coca' %}active{% endif %}"
         data-brand="Coca"
       >
         Coca-Cola
       </div>
       <div
-        class="btn btn-outline-secondary rounded-pill mr-1"
+        class="btn btn-outline-secondary rounded-pill mr-1 {% if query == 'sprite' %}active{% endif %}"
         data-brand="Sprite"
       >
         Sprite
       </div>
       <div
-        class="btn btn-outline-secondary rounded-pill mr-1"
+        class="btn btn-outline-secondary rounded-pill mr-1 {% if query == 'fanta' %}active{% endif %}"
         data-brand="Fanta"
       >
         Fanta
       </div>
       <div
-        class="btn btn-outline-secondary rounded-pill mr-1"
+        class="btn btn-outline-secondary rounded-pill mr-1 {% if query == 'aquarius' %}active{% endif %}"
         data-brand="Aquarius"
       >
         Aquarius
       </div>
       <div
-        class="btn btn-outline-secondary rounded-pill mr-1"
+        class="btn btn-outline-secondary rounded-pill mr-1 {% if query == 'dasani' %}active{% endif %}"
         data-brand="Dasani"
       >
         Dasani
       </div>
       <div
-        class="btn btn-outline-secondary rounded-pill mr-1"
+        class="btn btn-outline-secondary rounded-pill mr-1 {% if query == 'nutri' %}active{% endif %}"
         data-brand="Nutri"
       >
         Nutri Boost
@@ -98,6 +98,7 @@
                 data-action="add"
                 class="btn btn-outline-dark update-cart"
                 style=""
+                onclick="increaseClickCount({{ product.id }})"
                 >Thêm vào giỏ</a
               >
             </div>
@@ -112,6 +113,25 @@
 <script>
   function truncateChars(str, maxChars) {
     return str.length > maxChars ? str.slice(0, maxChars) + "..." : str;
+  }
+
+  // Hàm xử lý sự kiện click vào sản phẩm
+  function addClickEventToProducts() {
+    const productCards = document.querySelectorAll(".product-card");
+
+    productCards.forEach((card) => {
+      card.addEventListener("click", function () {
+        const id = this.dataset.id;
+        const productDetailUrl = `/product_detail/${id}/`;
+        window.location.href = productDetailUrl;
+      });
+    });
+  }
+  function addPointerCursorToImages() {
+    const images = document.querySelectorAll(".card-img-top");
+    images.forEach((image) => {
+      image.style.cursor = "pointer";
+    });
   }
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -170,8 +190,13 @@
             }
           });
         }
+
+        addClickEventToProducts();
+        addPointerCursorToImages();
       });
     });
+
+    addClickEventToProducts();
   });
 </script>
 
@@ -192,6 +217,18 @@
       });
     });
   });
+</script>
+
+<script>
+  function increaseClickCount(productId) {
+    fetch(`/increase_click_count/${productId}/`)
+      .then((response) => {
+        // Xử lý phản hồi nếu cần thiết
+      })
+      .catch((error) => {
+        console.error("Có lỗi xảy ra:", error);
+      });
+  }
 </script>
 
 {% endblock product-content %}

@@ -84,28 +84,21 @@
     <h2 class="font-weight-bolder pb-4">Sản phẩm nổi bật</h2>
   </div>
   <div class="row no-gutters grooves d-flex">
-    {% for product in products %} {% if forloop.counter <= 6 %}
+    {% for product in products %}
     <div class="col-4" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)">
-      <div class="card" data-id="{{ product.id }}">
-        <img class="card-img-top" src="{{product.ImageURL}}" />
-        <div class="card-body">
-          <h5 class="card-title">{{product.name}}</h5>
-          <p class="price">${{product.price | floatformat:2}}</p>
-          <a href="{% url 'product' %}" class="btn btn-outline-dark"
-            >Xem thêm</a
-          >
-          <a
-            data-product="{{product.id}}"
-            data-action="add"
-            class="btn btn-outline-dark update-cart"
-            style="float: right"
-            >Thêm vào giỏ</a
-          >
+        <div class="card" data-id="{{ product.id }}">
+            <img class="card-img-top" src="{{ product.ImageURL }}" />
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="price">${{ product.price | floatformat:2 }}</p>
+                <a href="{% url 'product_detail' product_id=product.id %}" class="btn btn-outline-dark">Xem thêm</a>
+                <a data-product="{{ product.id }}" data-action="add" class="btn btn-outline-dark update-cart" style="float: right">Thêm vào giỏ</a>
+            </div>
         </div>
-      </div>
     </div>
-    {% endif %} {% endfor %}
-  </div>
+    {% endfor %}
+</div>
+
 </div>
 <div class="container container-service">
   <div class="row">
@@ -125,8 +118,8 @@
           <div class="card-body">
             <h5 class>Để từng khoảnh khắc trong cuộc sống tràn đầy ý nghĩa</h5>
             <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+              Chúng tôi luôn tích cực tìm hiểu nhu cầu của người dùng và đam mê
+              tạo ra các loại đồ uống với hương vị tuyệt vời.
             </p>
             <a href="#" class="">
               <h4 class="">Tìm hiểu các nhãn hàng của Coco</h4>
@@ -136,11 +129,13 @@
       </div>
       <div class="col-6">
         <div class="card">
-          <img
-            src="{% static 'images/cc.webp' %}"
-            class="card-img-top"
-            alt="..."
-          />
+          <a href="service">
+            <img
+              src="{% static 'images/cc.webp' %}"
+              class="card-img-top"
+              alt="..."
+            />
+          </a>
           <div class="card-body">
             <h5 class>
               Vì Một Thế Giới Không Rác Thải, hãy hành động từng bước cùng chúng
@@ -150,7 +145,7 @@
               Chúng tôi góp phần giải quyết các vấn đề về bao bì thông qua việc
               đầu tư vào môi trường và quy trình đóng gói
             </p>
-            <a href="#" class="">
+            <a href="service" class="">
               <h4 class="">Sáng kiến phát triển bao bì bền vững</h4>
             </a>
           </div>
@@ -160,7 +155,10 @@
   </div>
 </div>
 
-<div class="container container-discover pt-5 text-center">
+<div
+  class="container container-discover pt-5 text-center"
+  id="discover-section"
+>
   <div class="title-discover">
     <h2 class="font-weight-bolder pb-4">
       Khám phá các thương hiệu của chúng tôi
@@ -171,31 +169,37 @@
     style="width: 75%; margin: 0 auto; display: flex; justify-content: center"
   >
     <div class="img-component col-4">
-      <button class="btn btn-brand">
+      <button class="btn btn-brand" >
+      <a href="{% url 'product' %}?searched=coca">
         <img class="img-brand" src="{% static 'images/10.webp' %}" />
       </button>
     </div>
-    <div class="img-component col-4">
+    <div class="img-component col-4" >
       <button class="btn btn-brand">
+      <a href="{% url 'product' %}?searched=sprite">
         <img class="img-brand" src="{% static 'images/2.webp' %}" />
       </button>
     </div>
-    <div class="img-component col-4">
+    <div class="img-component col-4" >
+      <a href="{% url 'product' %}?searched=fanta">
       <button class="btn btn-brand">
         <img class="img-brand" src="{% static 'images/3.webp' %}" />
       </button>
     </div>
-    <div class="img-component col-4">
+    <div class="img-component col-4" >
+      <a href="{% url 'product' %}?searched=dasani">
       <button class="btn btn-brand">
         <img class="img-brand" src="{% static 'images/4.webp' %}" />
       </button>
     </div>
-    <div class="img-component col-4">
+    <div class="img-component col-4" >
+      <a href="{% url 'product' %}?searched=aquarius">
       <button class="btn btn-brand">
         <img class="img-brand" src="{% static 'images/5.webp' %}" />
       </button>
     </div>
-    <div class="img-component col-4">
+    <div class="img-component col-4" >
+      <a href="{% url 'product' %}?searched=nutri">
       <button class="btn btn-brand">
         <img class="img-brand" src="{% static 'images/6.webp' %}" />
       </button>
@@ -216,22 +220,34 @@
 
     <!-- Right -->
     <div>
-      <a href="" class="mx-4 text-reset">
+      <a
+        href="https://www.facebook.com/minhcong.nguyen.1293"
+        class="mx-4 text-reset"
+      >
         <i class="fab fa-facebook-f"></i>
       </a>
-      <a href="" class="mx-4 text-reset">
+      <a href="https://twitter.com/Cogncogn0329" class="mx-4 text-reset">
         <i class="fab fa-twitter"></i>
       </a>
-      <a href="" class="mx-4 text-reset">
+      <a
+        href="mailto:congnguyen0329@gmail.com?subject=Ch%C3%A0o%20b%E1%BA%A1n&body=Xin%20ch%C3%A0o%2C%0A%0AT%C3%B4i%20mong%20mu%E1%BB%91n%20k%E1%BA%BFt%20n%E1%BB%99i%20v%E1%BB%9Bi%20b%E1%BA%A1n%20v%E1%BB%81%20%E1%BB%A9ng%20d%E1%BB%A5ng%20n%C3%A0y."
+        class="mx-4 text-reset"
+      >
         <i class="fab fa-google"></i>
       </a>
-      <a href="" class="mx-4 text-reset">
+      <a
+        href="https://www.instagram.com/cogn_0329/?hl=vi"
+        class="mx-4 text-reset"
+      >
         <i class="fab fa-instagram"></i>
       </a>
-      <a href="" class="mx-4 text-reset">
+      <a
+        href="https://www.linkedin.com/in/c%C3%B4ng-c%C3%B4ng-58ab85302/"
+        class="mx-4 text-reset"
+      >
         <i class="fab fa-linkedin"></i>
       </a>
-      <a href="" class="mx-4 text-reset">
+      <a href="https://github.com/Cong0329" class="mx-4 text-reset">
         <i class="fab fa-github"></i>
       </a>
     </div>
@@ -248,11 +264,14 @@
         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
           <!-- Content -->
           <h6 class="text-uppercase fw-bold mb-4">
-            <i class="fas fa-gem mr-3"></i>Company name
+            <i class="fas fa-gem mr-3"></i>Coco Company
           </h6>
           <p>
-            Here you can use rows and columns to organize your footer content.
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Chiến lược phát triển bền vững của chúng tôi là kim chỉ nam để công
+            ty hỗ trợ và gắn kết những con người đặc biệt đã góp phần xây dựng
+            các nhãn hàng và thương hiệu của công ty — từ người nông dân, nhân
+            viên, đối tác đóng chai, nhà cung cấp, khách hàng, người tiêu dùng
+            đến các cộng đồng địa phương.
           </p>
         </div>
         <!-- Grid column -->
@@ -260,18 +279,24 @@
         <!-- Grid column -->
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
           <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4">Products</h6>
+          <h6 class="text-uppercase fw-bold mb-4">Brands</h6>
           <p>
-            <a href="#!" class="text-reset">Angular</a>
+            <a href="#!" class="text-reset">Coca-Cola</a>
           </p>
           <p>
-            <a href="#!" class="text-reset">React</a>
+            <a href="#!" class="text-reset">Sprite</a>
           </p>
           <p>
-            <a href="#!" class="text-reset">Vue</a>
+            <a href="#!" class="text-reset">Fanta</a>
           </p>
           <p>
-            <a href="#!" class="text-reset">Laravel</a>
+            <a href="#!" class="text-reset">Dasani</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Aquarius</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Nutri Boost</a>
           </p>
         </div>
         <!-- Grid column -->
@@ -281,13 +306,13 @@
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-4">Useful links</h6>
           <p>
-            <a href="#!" class="text-reset">Pricing</a>
+            <a href="product" class="text-reset">Products</a>
           </p>
           <p>
-            <a href="#!" class="text-reset">Settings</a>
+            <a href="cart" class="text-reset">Cart</a>
           </p>
           <p>
-            <a href="#!" class="text-reset">Orders</a>
+            <a href="service" class="text-reset">Service</a>
           </p>
           <p>
             <a href="#!" class="text-reset">Help</a>
@@ -299,13 +324,13 @@
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-          <p><i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+          <p><i class="fas fa-home mr-3"></i> Hoà Xuân, Đà Nẵng, Việt Nam</p>
           <p>
             <i class="fas fa-envelope mr-3"></i>
-            info@example.com
+            congnguyen0329@gmail.com
           </p>
-          <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-          <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+          <p><i class="fas fa-phone mr-3"></i> + 84 768 554 737</p>
+          <p><i class="fas fa-print mr-3"></i> + 84 768 554 737</p>
         </div>
         <!-- Grid column -->
       </div>
@@ -317,7 +342,11 @@
   <!-- Copyright -->
   <div class="text-center p-4">
     © 2024 Copyright:
-    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">Coco.com</a>
+    <a
+      class="text-reset fw-bold"
+      href="https://www.facebook.com/minhcong.nguyen.1293"
+      >Coco.com</a
+    >
   </div>
   <!-- Copyright -->
 </footer>
@@ -325,7 +354,6 @@
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const productImages = document.querySelectorAll(".card-img-top");
-
     productImages.forEach((image) => {
       image.addEventListener("click", function () {
         const productId = this.closest(".card").dataset.id;
@@ -336,6 +364,22 @@
           console.error("Product ID not found");
         }
       });
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const anchorTag = document.querySelector(".col-6 .card");
+
+    anchorTag.addEventListener("click", function (event) {
+      event.preventDefault();
+      const discoverSection = document.getElementById("discover-section");
+      if (discoverSection) {
+        discoverSection.scrollIntoView({ behavior: "smooth" });
+      } else {
+        console.error("Discover section not found");
+      }
     });
   });
 </script>

@@ -1,0 +1,296 @@
+{% extends "app/base.html"%}<br />
+{% load static %}<br />
+{% block service-content %}
+<style>
+  .container-service-child {
+    background: url('{% static "images/img-service.webp" %}');
+    height: 600px;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  .container-service-child1 {
+    background: url('{% static "images/img-service1.webp" %}');
+    height: 600px;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  .title {
+    background: #f8f9fa;
+    border-radius: 20px;
+  }
+  .title-1 {
+    background: #f8f9fa;
+    border-radius: 20px;
+  }
+  .card-child {
+    border: 0;
+  }
+  .card-img-top {
+    height: 235px;
+    border-radius: 20px;
+  }
+  .card-body {
+    margin-top: 10px;
+    background: #f8f9fa;
+    border-radius: 20px;
+  }
+  .card {
+    padding: 0;
+  }
+  .grooves {
+    gap: 10px;
+  }
+  .container-service-child-2 .col-4 {
+    max-width: calc(33.33% - 10px);
+  }
+  footer {
+    background-color: #f8f9fa;
+  }
+</style>
+<div class="container container-service">
+  <div class="container container-service-child mt-4"></div>
+  <div class="row no-gutters">
+    <div class="col-12 title mt-4 py-2">
+      <h2 class="text-center">Quy Trình Đóng Gói Bền Vững</h2>
+      <h5 class="py-2 text-start px-4">
+        Nắm vai trò tiên phong với sáng kiến Một Thế Giới Không Rác Thải,
+        Coca‑Cola hướng đến việc đưa bao bì đóng gói trở thành một phần của nền
+        kinh tế tuần hoàn.
+      </h5>
+    </div>
+  </div>
+  <div class="container container-service-child1 mt-4"></div>
+  <div class="row no-gutters">
+    <div class="col-12 title-1 mt-4 py-2">
+      <h2 class="text-center">
+        Chúng tôi quan tâm đến hành tinh, con người và cộng đồng
+      </h2>
+      <h5 class="py-2 text-start px-4">
+        Chúng tôi mong muốn tạo dựng một tương lai chung bền vững và tốt đẹp
+        hơn. Tạo nên sự khác biệt cho cộng đồng, con người và hành tinh của
+        chúng ta thông qua hoạt động kinh doanh đúng đắn. Bằng cách trở thành
+        một công ty tốt đẹp hơn, chúng tôi có thể giúp xây dựng một tương lai
+        vững mạnh hơn cho tất cả chúng ta.
+      </h5>
+      <h5 class="py-2 text-start px-4">
+        Chúng tôi áp dụng cách tiếp cận toàn diện để phát triển bền vững, tập
+        trung hỗ trợ các vấn đề về xã hội, môi trường và kinh tế. Chỉ thông qua
+        cách tiếp cận toàn diện, chúng ta mới có thể tạo ra sự thay đổi mang
+        tính chuyển hóa và lâu dài.
+      </h5>
+    </div>
+  </div>
+  <div class="container container-service-child-2 mt3">
+    <div class="row no-gutters">
+      <div class="col-12 title-2 pt-3">
+        <h2 class="text-center py-3">
+          Các trọng tâm trong kế hoạch phát triển bền vững của chúng tôi
+        </h2>
+      </div>
+      <div class="grooves content row">
+        <div class="card col-4 card-child">
+          <img
+            src="{% static 'images/img-service2.webp' %}"
+            class="card-img-top"
+            alt="..."
+          />
+          <div class="card-body">
+            <h4 class="text-center">Quản lý nước</h4>
+            <p class="card-text">
+              Chiến lược sử dụng nước của chúng tôi tập trung vào an ninh nguồn
+              nước thông qua nỗ lực hoàn trả nước về cộng đồng và thiên nhiên
+              tại các địa phương công ty đang vận hành nhà máy, vận động cho các
+              chính sách quản lý nước thông minh cũng như việc sử dụng nước có
+              trách nhiệm và hiệu quả trong các hoạt động của chúng tôi và tại
+              các cộng đồng mà chúng tôi phục vụ.
+            </p>
+          </div>
+        </div>
+        <div class="card col-4 card-child">
+          <img
+            src="{% static 'images/img-service.webp' %}"
+            class="card-img-top"
+            alt="..."
+          />
+          <div class="card-body">
+            <h4 class="text-center">Bao bì bền vững</h4>
+            <p class="card-text">
+              Chúng tôi đặt mục tiêu hỗ trợ thu gom, tái chế mỗi chai và lon bán
+              ra, sử dụng vật liệu bao bì có thể tái chế 100%, và sử dụng ít
+              nhất 50% thành phần tái chế trong bao bì của chúng tôi trên toàn
+              cầu.
+            </p>
+          </div>
+        </div>
+        <div class="card col-4 card-child">
+          <img
+            src="{% static 'images/img-service3.webp' %}"
+            class="card-img-top"
+            alt="..."
+          />
+          <div class="card-body">
+            <h4 class="text-center">Sản phẩm của chúng tôi</h4>
+            <p class="card-text">
+              Chúng tôi mang đến danh mục sản phẩm thức uống đa dạng với mong
+              muốn trở thành Công ty nước giải khát Toàn diện, cung cấp nhiều
+              lựa chọn để đáp ứng nhu cầu giải khát hằng ngày của người tiêu
+              dùng — với các lựa chọn thức uống ít đường và thức uống bổ sung
+              dưỡng chất. Từ nước uống có ga đến các sản phẩm từ sữa, nước giải
+              khát và hơn thế nữa.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="text-lg-start bg-body-tertiary text-muted mt-4">
+  <!-- Section: Social media -->
+  <section
+    class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+  >
+    <!-- Left -->
+    <div class="mx-5 d-none d-lg-block">
+      <span>Get connected with us on social networks:</span>
+    </div>
+    <!-- Left -->
+
+    <!-- Right -->
+    <div>
+      <a
+        href="https://www.facebook.com/minhcong.nguyen.1293"
+        class="mx-4 text-reset"
+      >
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://twitter.com/Cogncogn0329" class="mx-4 text-reset">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a
+        href="mailto:congnguyen0329@gmail.com?subject=Ch%C3%A0o%20b%E1%BA%A1n&body=Xin%20ch%C3%A0o%2C%0A%0AT%C3%B4i%20mong%20mu%E1%BB%91n%20k%E1%BA%BFt%20n%E1%BB%99i%20v%E1%BB%9Bi%20b%E1%BA%A1n%20v%E1%BB%81%20%E1%BB%A9ng%20d%E1%BB%A5ng%20n%C3%A0y."
+        class="mx-4 text-reset"
+      >
+        <i class="fab fa-google"></i>
+      </a>
+      <a
+        href="https://www.instagram.com/cogn_0329/?hl=vi"
+        class="mx-4 text-reset"
+      >
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a
+        href="https://www.linkedin.com/in/c%C3%B4ng-c%C3%B4ng-58ab85302/"
+        class="mx-4 text-reset"
+      >
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="https://github.com/Cong0329" class="mx-4 text-reset">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </section>
+  <!-- Section: Social media -->
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem mr-3"></i>Coco Company
+          </h6>
+          <p>
+            Chiến lược phát triển bền vững của chúng tôi là kim chỉ nam để công
+            ty hỗ trợ và gắn kết những con người đặc biệt đã góp phần xây dựng
+            các nhãn hàng và thương hiệu của công ty — từ người nông dân, nhân
+            viên, đối tác đóng chai, nhà cung cấp, khách hàng, người tiêu dùng
+            đến các cộng đồng địa phương.
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">Brands</h6>
+          <p>
+            <a href="#!" class="text-reset">Coca-Cola</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Sprite</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Fanta</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Dasani</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Aquarius</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Nutri Boost</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">Useful links</h6>
+          <p>
+            <a href="product" class="text-reset">Products</a>
+          </p>
+          <p>
+            <a href="cart" class="text-reset">Cart</a>
+          </p>
+          <p>
+            <a href="service" class="text-reset">Service</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Help</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+          <p><i class="fas fa-home mr-3"></i> Hoà Xuân, Đà Nẵng, Việt Nam</p>
+          <p>
+            <i class="fas fa-envelope mr-3"></i>
+            congnguyen0329@gmail.com
+          </p>
+          <p><i class="fas fa-phone mr-3"></i> + 84 768 554 737</p>
+          <p><i class="fas fa-print mr-3"></i> + 84 768 554 737</p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <div class="text-center p-4">
+    © 2024 Copyright:
+    <a
+      class="text-reset fw-bold"
+      href="https://www.facebook.com/minhcong.nguyen.1293"
+      >Coco.com</a
+    >
+  </div>
+  <!-- Copyright -->
+</footer>
+
+{% endblock service-content %}

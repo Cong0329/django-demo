@@ -18,6 +18,7 @@ class Product(models.Model):
     brand = models.CharField(max_length=50, null=True)
     detail = models.CharField(max_length=500, null=True)
     detail_ingredient = models.CharField(max_length=500, null=True)
+    click_count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name

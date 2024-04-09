@@ -35,19 +35,18 @@ def logoutPage(request):
     logout(request)
     return redirect('login')
 def home(request):
+    products = Product.objects.order_by('-click_count')[:6]
+
+    cartItems = 0
     if request.user.is_authenticated:
         customer = request.user
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
         cartItems = order.get_cart_items
-    else:
-        order = None
-        items = []
-        cartItems = 0
 
-    products = Product.objects.all()
     context = {'products': products, 'cartItem': cartItems}
     return render(request, 'app/home.html', context)
+
+
 
 def cart(request):
     if request.user.is_authenticated:
@@ -117,10 +116,12 @@ def product(request):
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         cartItems = order.get_cart_items
 
-    context = {'products': products, 'cartItem': cartItems}
+    context = {'products': products, 'cartItem': cartItems, 'query': query}
     return render(request, 'app/product.html', context)
+
 def productDetail(request, product_id=None):
     if product_id:
+        increase_click_count(request, product_id)
         product = get_object_or_404(Product, id=product_id)
         related_products = Product.objects.filter(brand=product.brand).exclude(id=product.id)
         cartItems = 0
@@ -183,3 +184,13 @@ def profile(request):
         return render(request, 'app/profile.html', context)
     else:
         return redirect('login')
+
+def service(request):
+    return render(request, 'app/service.html')
+
+def increase_click_count(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    
+    product.click_count += 1
+    product.save()
+    return HttpResponse()
