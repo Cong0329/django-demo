@@ -1,0 +1,138 @@
+{% extends "app/base.html" %} {% load static %} {% block rating %}
+<style>
+  #rating {
+    padding-left: 20px;
+    border: none;
+    float: left;
+  }
+  #rating > input {
+    display: none;
+  }
+  #rating > label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+  }
+  #rating > .half:before {
+    position: absolute;
+  }
+  #rating > label {
+    color: #ddd;
+    float: right;
+  }
+  #rating > input:checked ~ label,
+  #rating:not(:checked) > label:hover,
+  #rating:not(:checked) > label:hover ~ label {
+    color: #ffd700;
+  }
+  #rating > input:checked + label:hover,
+  #rating > input:checked ~ label:hover,
+  #rating > label:hover ~ input:checked ~ label,
+  #rating > input:checked ~ label:hover ~ label {
+    color: #ffed85;
+  }
+  .content-rating {
+    border-bottom: 0.5px solid #f8f9fa;
+  }
+</style>
+<div class="container container-rating rounded my-4">
+  <div class="row no-gutters">
+    <div class="col-12 title-rating pt-3">
+      <h4 class="pb-4">Quýnh giá sản phẩm</h4>
+    </div>
+    {% for item in items %}
+    <div class="col-12 content-rating py-1">
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="product_id" value="{{ item.product.id }}" />
+        <div class="row align-items-center">
+          <div class="col-md-2">
+            <img
+              src="{{ item.product.ImageURL }}"
+              alt="{{ item.product.name }}"
+              class="img-fluid"
+              style="max-height: 100px; width: 100px; object-fit: contain"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="star{{ item.product.id }}"
+              >Đánh giá cho sản phẩm {{ item.product.name }}:
+            </label>
+          </div>
+          <div class="col-md-2">
+            <div id="rating">
+              <input
+                type="radio"
+                id="star{{ item.product.id }}_5"
+                name="rating"
+                value="5"
+              />
+              <label
+                class="full"
+                for="star{{ item.product.id }}_5"
+                title="Awesome - 5 stars"
+                ><i class="far fa-star"></i
+              ></label>
+              <input
+                type="radio"
+                id="star{{ item.product.id }}_4"
+                name="rating"
+                value="4"
+              />
+              <label
+                class="full"
+                for="star{{ item.product.id }}_4"
+                title="Pretty good - 4 stars"
+                ><i class="far fa-star"></i
+              ></label>
+              <input
+                type="radio"
+                id="star{{ item.product.id }}_3"
+                name="rating"
+                value="3"
+              />
+              <label
+                class="full"
+                for="star{{ item.product.id }}_3"
+                title="Meh - 3 stars"
+                ><i class="far fa-star"></i
+              ></label>
+              <input
+                type="radio"
+                id="star{{ item.product.id }}_2"
+                name="rating"
+                value="2"
+              />
+              <label
+                class="full"
+                for="star{{ item.product.id }}_2"
+                title="Kinda bad - 2 stars"
+                ><i class="far fa-star"></i
+              ></label>
+              <input
+                type="radio"
+                id="star{{ item.product.id }}_1"
+                name="rating"
+                value="1"
+              />
+              <label
+                class="full"
+                for="star{{ item.product.id }}_1"
+                title="Sucks big time - 1 star"
+                ><i class="far fa-star"></i
+              ></label>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-secondary" type="submit">
+              Gửi đánh giá
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock rating %}

@@ -99,10 +99,13 @@
     {% for product in products %}
     <div class="col-4" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)">
         <div class="card" data-id="{{ product.id }}">
-            <img class="card-img-top" src="{{ product.ImageURL }}" />
+            <img class="card-img-top" src="{{ product.ImageURL }}" style="max-height: 358px; max-width: 358px; object-fit: contain;"/>
             <div class="card-body">
                 <h5 class="card-title">{{ product.name }}</h5>
+                <div class="d-flex justify-content-between">
                 <p class="price">${{ product.price | floatformat:2 }}</p>
+                <p class="rating px-1" style="color: #ffe484"><i class="far fa-star px-1"></i>{{ product.average_rating| floatformat:1}}</p>
+                </div>
                 <a href="{% url 'product_detail' product_id=product.id %}" class="btn btn-outline-dark">Xem thêm</a>
                 <a data-product="{{ product.id }}" data-action="add" class="btn btn-outline-dark update-cart" style="float: right">Thêm vào giỏ</a>
             </div>

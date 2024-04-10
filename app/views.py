@@ -35,7 +35,10 @@ def logoutPage(request):
     logout(request)
     return redirect('login')
 def home(request):
-    products = Product.objects.order_by('-click_count')[:6]
+    products = Product.objects.order_by('-views')[:6]
+
+    for product in products:
+        product.average_rating = Rating.calculate_average_rating(product.id)
 
     cartItems = 0
     if request.user.is_authenticated:
@@ -45,8 +48,6 @@ def home(request):
 
     context = {'products': products, 'cartItem': cartItems}
     return render(request, 'app/home.html', context)
-
-
 
 def cart(request):
     if request.user.is_authenticated:
@@ -101,7 +102,7 @@ def remove_from_cart(request, cart_product_id):
             item = OrderItem.objects.get(order=order, product__id=cart_product_id)
             item.delete()
         except OrderItem.DoesNotExist:
-            pass  # Bỏ qua nếu không tìm thấy item
+            pass  
     return redirect('cart')
 def product(request):
     query = request.GET.get('searched')
@@ -110,6 +111,8 @@ def product(request):
     if query:
         products = products.filter(Q(name__icontains=query))
 
+    for product in products:
+        product.average_rating = Rating.calculate_average_rating(product.id)
 
     cartItems = 0
     if request.user.is_authenticated:
@@ -117,14 +120,14 @@ def product(request):
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         cartItems = order.get_cart_items
 
-    context = {'products': products, 'cartItem': cartItems, 'query': query,}
+    context = {'products': products, 'cartItem': cartItems, 'query': query, }
     return render(request, 'app/product.html', context)
-
 
 def productDetail(request, product_id=None):
     if product_id:
         increase_click_count(request, product_id)
         product = get_object_or_404(Product, id=product_id)
+        average_rating = Rating.calculate_average_rating(product_id)
         related_products = Product.objects.filter(brand=product.brand).exclude(id=product.id)
         cartItems = 0
         if request.user.is_authenticated:
@@ -132,7 +135,7 @@ def productDetail(request, product_id=None):
             order, created = Order.objects.get_or_create(customer=customer, complete=False)
             cartItems = order.get_cart_items
 
-        context = {'product': product, 'cartItem': cartItems, 'related_products': related_products,}
+        context = {'product': product, 'cartItem': cartItems, 'related_products': related_products, 'average_rating': average_rating}
         return render(request, 'app/product_detail.html', context)
     else:
         query = request.GET.get('searched')
@@ -201,6 +204,33 @@ def service(request):
 def increase_click_count(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     
-    product.click_count += 1
-    product.save(update_fields=['click_count', 'save_clicked'])
+    product.views += 1
+    product.save(update_fields=['views', 'save_clicked'])
     return HttpResponse()
+
+def rating(request):
+    if request.method == 'POST':
+        product_id = request.POST.get('product_id')
+        rating_value = int(request.POST.get('rating'))
+        product = Product.objects.get(pk=product_id)
+        # Kiểm tra xem người dùng đã đánh giá sản phẩm này trước đó chưa
+        existing_rating = Rating.objects.filter(product=product, user=request.user).first()
+        if existing_rating:
+            # Nếu đã tồn tại đánh giá, cập nhật lại giá trị đánh giá
+            existing_rating.rating = rating_value
+            existing_rating.save()
+        else:
+            # Nếu chưa tồn tại đánh giá, tạo một đánh giá mới
+            Rating.objects.create(product=product, user=request.user, rating=rating_value)
+        
+        # Xoá sản phẩm khỏi giỏ hàng
+        remove_from_cart(request, product_id)
+        
+        return redirect('rating')  # Redirect back to rating page after submitting the rating
+    else:
+        # Lấy thông tin đơn hàng của người dùng
+        order, created = Order.objects.get_or_create(customer=request.user, complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+        context = {'items': items, 'order': order, 'cartItem': cartItems}
+        return render(request, 'app/rating.html', context)

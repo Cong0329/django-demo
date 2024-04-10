@@ -18,7 +18,7 @@ class Product(models.Model):
     brand = models.CharField(max_length=50, null=True)
     detail = models.CharField(max_length=500, null=True)
     detail_ingredient = models.CharField(max_length=500, null=True)
-    click_count = models.IntegerField(default=0)
+    views = models.IntegerField(default=0)
     save_clicked = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -79,3 +79,17 @@ class Shipping(models.Model):
 
 class Files(models.Model):
     file = models.FileField(upload_to='file')  
+
+class Rating(models.Model):
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    rating = models.IntegerField()  
+
+    class Meta:
+        unique_together = ('product', 'user') 
+
+    @classmethod
+    def calculate_average_rating(cls, product_id):
+        ratings = cls.objects.filter(product_id=product_id)
+        total_ratings = ratings.aggregate(models.Avg('rating'))['rating__avg']
+        return total_ratings if total_ratings else 0

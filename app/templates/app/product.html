@@ -88,11 +88,20 @@
         data-detail_ingredient="{{ product.detail_ingredient }}"
       >
         <div class="card product-card m-1">
-          <img
-            class="card-img-top"
-            src="{{ product.ImageURL }}"
-            style="cursor: pointer"
-          />
+          <div class="position-relative">
+            <img
+              class="card-img-top"
+              src="{{ product.ImageURL }}"
+              style="cursor: pointer"
+            />
+            <p
+              class="rating px-1"
+              style="color: #ffe484; position: absolute; top: 10px; left: 5px"
+            >
+              <i class="far fa-star px-1"></i>{#ssssssssssssssssssssssssssss#}
+              {{ product.average_rating| floatformat:1}}
+            </p>
+          </div>
           <div class="card-body">
             <h5 class="card-title">{{ product.name | truncatechars:18 }}</h5>
             <div class="align-items-center d-flex justify-content-between">
@@ -129,13 +138,23 @@
           data-id="{{ suggest_product.id }}"
           data-detail="{{ suggest_product.detail }}"
           data-detail_ingredient="{{ suggest_product.detail_ingredient }}"
+          data-average-rating="{{ suggest_product.average_rating }}"
         >
           <div class="card product-card m-1">
-            <img
-              class="card-img-top"
-              src="{{ suggest_product.ImageURL }}"
-              style="cursor: pointer"
-            />
+            <div class="position-relative">
+              <img
+                class="card-img-top"
+                src="{{ suggest_product.ImageURL }}"
+                style="cursor: pointer"
+              />
+              <p
+                class="rating px-1"
+                style="color: #ffe484; position: absolute; top: 10px; left: 5px"
+              >
+                <i class="far fa-star px-1"></i
+                >{##}{{suggest_product.average_rating}}
+              </p>
+            </div>
             <div class="card-body">
               <h5 class="card-title">
                 {{ suggest_product.name | truncatechars:18 }}
@@ -222,7 +241,11 @@
               productItem.dataset.id = product.dataset.id;
               productItem.innerHTML = `
                 <div class="card product-card m-1">
-                  <img class="card-img-top" src="${product.dataset.image}" />
+                    <img
+                      class="card-img-top"
+                      src="${product.dataset.image}"
+                      style="cursor: pointer"
+                    />
                   <div class="card-body">
                     <h5 class="card-title">${truncateChars(
                       product.dataset.name,
