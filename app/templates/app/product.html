@@ -6,7 +6,9 @@
   }
   .product-card {
     font-size: 0.8rem;
+    border-radius: 10px;
   }
+
   .card-title {
     font-size: 0.8rem;
     font-weight: bold;
@@ -87,7 +89,7 @@
         data-detail="{{ product.detail }}"
         data-detail_ingredient="{{ product.detail_ingredient }}"
       >
-        <div class="card product-card m-1">
+        <div class="card product-card" style="margin: 0.15rem !important">
           <div class="position-relative">
             <img
               class="card-img-top"
@@ -140,7 +142,10 @@
           data-detail_ingredient="{{ suggest_product.detail_ingredient }}"
           data-average-rating="{{ suggest_product.average_rating }}"
         >
-          <div class="card product-card m-1">
+          <div
+            class="card product-card"
+            style="margin: 0.15rem !important; border: 0"
+          >
             <div class="position-relative">
               <img
                 class="card-img-top"
